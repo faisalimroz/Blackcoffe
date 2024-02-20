@@ -2,6 +2,8 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsAccessibility from 'highcharts/modules/accessibility';
 import { useEffect, useState } from 'react';
+import MyPieChart from './Piechart';
+import MyBarChart from './MyBarChart';
 
 // Initialize accessibility module
 highchartsAccessibility(Highcharts);
@@ -137,7 +139,8 @@ const Sideb = () => {
                 highcharts={Highcharts}
                 options={chartOptions2}
             />
-            
+            {/* <MyPieChart></MyPieChart> */}
+            <MyBarChart></MyBarChart>
         </>
     );
 };
