@@ -1,0 +1,5 @@
+/* Assuming `.drawer-side` is the class of the sidebar container */
+.drawer-side {
+    background-color: transparent; /* Set the background color of the sidebar to transparent */
+  }
+  

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { useEffect, useState } from 'react';
 
 const MyBarChart = () => {
   const [chartOptions, setChartOptions] = useState(null);
@@ -8,7 +8,7 @@ const MyBarChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/data.json');
+        const response = await fetch('http://localhost:5000/data');
         const data = await response.json();
         // Process data and create chart options
         const processedData = processData(data);
@@ -64,8 +64,7 @@ const MyBarChart = () => {
     const options = {
       chart: {
         type: 'bar',
-        height: 800, // Adjust the height as needed
-        width: 800   // Adjust the width as needed
+        // Remove fixed height and width
       },
       title: {
         text: 'Country Data'
@@ -78,7 +77,7 @@ const MyBarChart = () => {
       },
       yAxis: {
         min: 0,
-        max: 25, // Set maximum value
+        max: 22, // Set maximum value
         title: {
           text: 'Average Value',
           align: 'high'
@@ -92,7 +91,7 @@ const MyBarChart = () => {
       },
       plotOptions: {
         bar: {
-          pointWidth: 5, // Reduce the width of bars
+          pointWidth: 6, // Reduce the width of bars
           dataLabels: {
             enabled: false
           }
@@ -124,7 +123,24 @@ const MyBarChart = () => {
         name: 'Likelihood',
         data: likelihoodAverages,
         color: '#5733FF' // Set likelihood color
-      }]
+      }],
+      // Add responsive settings
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500 // Adjust the maximum width as needed
+          },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom',
+              x: 0,
+              y: 0
+            }
+          }
+        }]
+      }
     };
 
     return options;
@@ -132,7 +148,6 @@ const MyBarChart = () => {
 
   return (
     <div>
-      <h2>Bar Chart</h2>
       {chartOptions ? <HighchartsReact highcharts={Highcharts} options={chartOptions} /> : <p>Loading...</p>}
     </div>
   );

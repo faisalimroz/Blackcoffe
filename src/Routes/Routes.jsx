@@ -8,27 +8,31 @@ import Sideb from "../Profiles/Sideb/Sideb";
 const router=createBrowserRouter([
     {
         path:'/',
-        element:<Main></Main>,
+        element:<Profile></Profile>,
         children:[
             {
                 path:'/',
                 element: <Home></Home>
-            }
-        ]
-    
-        },
-        {
-            path:'/profile',
-            element: <Profile></Profile>,
-            children:[
-                
-               {
+            },
+            {
                 path:'aaaa',
                 element:<Sideb></Sideb>
                }
-            ]
+        ]
+    }
+        // },
+        // {
+        //     path:'/profile',
+        //     element: <Profile></Profile>,
+        //     children:[
+                
+        //        {
+        //         path:'aaaa',
+        //         element:<Sideb></Sideb>
+        //        }
+        //     ]
         
-            }
+        //     }
     
 
     

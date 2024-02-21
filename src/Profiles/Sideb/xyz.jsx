@@ -8,7 +8,7 @@
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch('/data.json');
+//         const response = await fetch('http://localhost:5000/data');
 //         const data = await response.json();
 //         // Process data and create chart options
 //         const processedData = processData(data);
