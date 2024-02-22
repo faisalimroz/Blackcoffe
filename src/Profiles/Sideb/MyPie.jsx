@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import Pie from './Pie';
 
 const MyPieChart = () => {
   const [chartOptions, setChartOptions] = useState(null);
@@ -8,7 +9,7 @@ const MyPieChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/data.json');
+        const response = await fetch('http://localhost:5000/data');
         const data = await response.json();
         const chartData = processData(data);
         setChartOptions(chartData);
@@ -50,6 +51,9 @@ const MyPieChart = () => {
       tooltip: {
         pointFormat: '{point.countries} Countries:</span> {point.countries}<b>{point.y}</b>'
       },
+      credits: {
+        enabled: false // Remove the credits label
+      },
       series: [{
         name: 'Region',
         data: regionData
@@ -58,10 +62,13 @@ const MyPieChart = () => {
   };
 
   return (
-    <div>
-      <h2>Pie Chart</h2>
-      {chartOptions ? <HighchartsReact highcharts={Highcharts} options={chartOptions} /> : <p>Loading...</p>}
-    </div>
+    <>
+      <div>
+
+        {chartOptions ? <HighchartsReact highcharts={Highcharts} options={chartOptions} /> : <p>Loading...</p>}
+      </div>
+      <Pie></Pie>
+    </>
   );
 };
 

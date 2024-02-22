@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { useEffect, useState } from 'react';
+import BarChart from './BarChart';
+import TopicFilterChart from './Bar';
 
 const MyBarChart = () => {
   const [chartOptions, setChartOptions] = useState(null);
@@ -10,7 +12,7 @@ const MyBarChart = () => {
       try {
         const response = await fetch('http://localhost:5000/data');
         const data = await response.json();
-        // Process data and create chart options
+     
         const processedData = processData(data);
         setChartOptions(processedData);
       } catch (error) {
@@ -24,7 +26,6 @@ const MyBarChart = () => {
   const processData = (data) => {
     const countryData = {};
 
-    // Aggregate data by country and calculate averages
     data.forEach(entry => {
       const country = entry.country;
       if (!countryData[country]) {
@@ -34,13 +35,13 @@ const MyBarChart = () => {
           likelihood: []
         };
       }
-      // Push intensity, relevance, and likelihood values to arrays
+      
       countryData[country].intensity.push(entry.intensity);
       countryData[country].relevance.push(entry.relevance);
       countryData[country].likelihood.push(entry.likelihood);
     });
 
-    // Calculate averages for each country
+   
     const categories = [];
     const intensityAverages = [];
     const relevanceAverages = [];
@@ -64,7 +65,7 @@ const MyBarChart = () => {
     const options = {
       chart: {
         type: 'bar',
-        // Remove fixed height and width
+        height: 800 // Increase the height of the chart
       },
       title: {
         text: 'Country Data'
@@ -77,7 +78,7 @@ const MyBarChart = () => {
       },
       yAxis: {
         min: 0,
-        max: 22, // Set maximum value
+        max: 22, 
         title: {
           text: 'Average Value',
           align: 'high'
@@ -91,7 +92,7 @@ const MyBarChart = () => {
       },
       plotOptions: {
         bar: {
-          pointWidth: 6, // Reduce the width of bars
+          pointWidth: 6, 
           dataLabels: {
             enabled: false
           }
@@ -114,21 +115,21 @@ const MyBarChart = () => {
       series: [{
         name: 'Intensity',
         data: intensityAverages,
-        color: '#FF5733' // Set intensity color
+        color: '#FF5733' 
       }, {
         name: 'Relevance',
         data: relevanceAverages,
-        color: '#33FF57' // Set relevance color
+        color: '#33FF57' 
       }, {
         name: 'Likelihood',
         data: likelihoodAverages,
-        color: '#5733FF' // Set likelihood color
+        color: '#5733FF' 
       }],
-      // Add responsive settings
+      
       responsive: {
         rules: [{
           condition: {
-            maxWidth: 500 // Adjust the maximum width as needed
+            maxWidth: 500 
           },
           chartOptions: {
             legend: {
@@ -147,9 +148,13 @@ const MyBarChart = () => {
   };
 
   return (
-    <div>
-      {chartOptions ? <HighchartsReact highcharts={Highcharts} options={chartOptions} /> : <p>Loading...</p>}
-    </div>
+    <>
+      <div>
+        {chartOptions ? <HighchartsReact highcharts={Highcharts} options={chartOptions} /> : <p>Loading...</p>}
+      </div>
+      <BarChart />
+      <TopicFilterChart />
+    </>
   );
 };
 

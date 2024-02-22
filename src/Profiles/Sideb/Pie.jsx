@@ -60,6 +60,9 @@ const Pie = () => {
                             }
                         }
                     },
+                    credits: {
+                        enabled: false // Remove the credits label
+                      },
                     series: [{
                         name: 'Topics',
                         colorByPoint: true,

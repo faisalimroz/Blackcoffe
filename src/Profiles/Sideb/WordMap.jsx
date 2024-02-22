@@ -57,6 +57,9 @@ const WordCloudChart = () => {
                         type: 'wordcloud',
                         data: wordCloudData
                     }],
+                    credits: {
+                        enabled: false // Remove the credits label
+                      },
                     title: {
                         text: 'Word Cloud based on Average Likelihood for Topics'
                     },

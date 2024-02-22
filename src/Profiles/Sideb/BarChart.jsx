@@ -13,10 +13,10 @@ const BarChart = () => {
     fetch('http://localhost:5000/data')
       .then(response => response.json())
       .then(data => {
-        // Filter out entries with null start_year or null sector
+       
         data = data.filter(entry => entry.start_year !== null && entry.sector !== null);
 
-        // Calculate average intensity for each sector based on year
+        
         const averagedData = data.reduce((acc, entry) => {
           const { start_year, intensity, sector } = entry;
           if (!acc[sector]) {
@@ -27,7 +27,6 @@ const BarChart = () => {
           return acc;
         }, {});
 
-        // Compute average intensity for each sector
         const averagedSeries = [{
           name: 'Average Intensity',
           data: Object.entries(averagedData).map(([sector, { totalIntensity, count }]) => ({
@@ -36,7 +35,7 @@ const BarChart = () => {
           }))
         }];
 
-        // Set chart options
+    
         setChartOptions({
           chart: {
             type: 'column'
@@ -54,6 +53,9 @@ const BarChart = () => {
             title: {
               text: 'Average Intensity'
             }
+          },
+          credits: {
+            enabled: false // Remove the credits label
           },
           series: averagedSeries
         });
